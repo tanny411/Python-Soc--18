@@ -78,4 +78,3 @@ del s2.reg
 # print(s2.reg) #Errored
 del s2
 # print(s2) #Shows error
-
