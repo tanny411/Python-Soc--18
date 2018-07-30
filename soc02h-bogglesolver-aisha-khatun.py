@@ -36,6 +36,8 @@ for i in range(n):
 
 dx=[0,0,1,-1]
 dy=[-1,1,0,0]
+
+words=set()
 result={
     "score":0,
     "words":[]
@@ -44,13 +46,11 @@ result={
 flag=[ [0]*n for i in range(n) ]
 
 def dfs(i,j,str):
-
-    print(i," ",j)
-
+    # print(i," ",j)
     if (str in dic) and len(str)>2:
-        result["words"].append(str)
-        print(str)
-        result["score"]+=len(str)-2
+        words.add(str)
+        # print("aise ",i," ",j)
+        # print(str)
 
     if i<0 or j<0 or i>=n or j>=n or flag[i][j]==True:
         return
@@ -61,12 +61,25 @@ def dfs(i,j,str):
         x=i+dx[k]
         y=j+dy[k]
         dfs(x,y,str+board[i][j])
-    
+
+    flag[i][j]=False
     return
+
+# import sys
+
+# orig_stdout = sys.stdout
+# f = open('out.txt', 'w')
+# sys.stdout = f
 
 for i in range(n):
     for j in range(n):
         flag=[ [0]*n for i in range(n) ]
         dfs(i,j,"")
 
+# sys.stdout = orig_stdout
+# f.close()
+
+for str in words:
+    result["score"]+=len(str)-2
+result["words"]=words
 print(result)
